@@ -1,0 +1,153 @@
+version: 1
+default_environment: dev
+project_id: e832976f-7b85-4aa8-b1c7-f1bda4979408
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: order_details
+        path: ${TAP_CSV_ORDER_DETAILS_PATH}
+        keys:
+        - order_id
+        - product_id
+        - unit_price
+        - quantity
+        - discount
+      - entity: categories
+        path: ${TAP_CSV_CATEGORIES_PATH}
+        keys:
+        - category_id
+        - category_name
+        - description
+        - picture
+      - entity: customers
+        path: ${TAP_CSV_CUSTOMERS_PATH}
+        keys:
+        - customer_id
+        - company_name
+        - contact_name
+        - contact_title
+        - address
+        - city
+        - region
+        - postal_code
+        - country
+        - phone
+        - fax
+      - entity: employee_territories
+        path: ${TAP_CSV_EMPLOYEE_TERRITORIES_PATH}
+        keys:
+        - employee_id
+        - territory_id
+      - entity: employees
+        path: ${TAP_CSV_EMPLOYEES_PATH}
+        keys:
+        - employee_id
+        - last_name
+        - first_name
+        - title
+        - title_of_courtesy
+        - birth_date
+        - hire_date
+        - address
+        - city
+        - region
+        - postal_code
+        - country
+        - home_phone
+        - extension
+        - photo
+        - notes
+        - reports_to
+        - photo_path
+      - entity: shippers
+        path: ${TAP_CSV_SHIPPERS_PATH}
+        keys:
+        - shipper_id
+        - company_name
+        - phone
+      - entity: suppliers
+        path: ${TAP_CSV_SUPPLIERS_PATH}
+        keys:
+        - supplier_id
+        - company_name
+        - contact_name
+        - contact_title
+        - address
+        - city
+        - region
+        - postal_code
+        - country
+        - phone
+        - fax
+        - homepage
+      - entity: territories
+        path: ${TAP_CSV_TERRITORIES_PATH}
+        keys:
+        - territory_id
+        - territory_description
+        - region_id
+      - entity: us_states
+        path: ${TAP_CSV_US_STATES_PATH}
+        keys:
+        - state_id
+        - state_name
+        - state_abbr
+        - state_region
+  
+      - entity: orders
+        path: ${TAP_CSV_ORDERS_PATH}
+        keys:
+        - order_id
+        - customer_id
+        - employee_id
+        - order_date
+        - required_date
+        - shipped_date
+        - ship_via
+        #- freight
+        - ship_name
+        - ship_address
+        - ship_city
+        - ship_region
+        - ship_postal_code
+        - ship_country
+      - entity: products
+        path: ${TAP_CSV_PRODUCTS_PATH}
+        keys:
+        - product_id
+        - product_name
+        - supplier_id
+        - category_id
+        - quantity_per_unit
+        #- unit_price
+        - units_in_stock
+        - units_on_order
+        - reorder_level
+        - discontinued
+      - entity: region
+        path: ${TAP_CSV_REGION_PATH}
+        keys:
+        - region_id
+        - region_description
+
+
+
+  loaders:
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      host: localhost
+      port: 5432
+      user: northwind_user
+      password: thewindisblowing
+      database: northwind
+      schema: "public"

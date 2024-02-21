@@ -1,0 +1,76 @@
+version: 1
+default_environment: dev
+project_id: b0e5ef2e-62c8-44dd-82d0-3977fd8369b6
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
+    config:
+      host: localhost
+      port: 5432
+      user: northwind_user
+      password: thewindisblowing
+      database: northwind
+    select:
+    - public-categories.*
+    - public-customer_customer_demo.*
+    - public-customer_demographics.*
+    - public-customers.*
+    - public-employee_territories.*
+    - public-employees.*
+    # explicitly setting which columns of public-orders to extract
+    - public-orders.order_id
+    - public-orders.customer_id
+    - public-orders.employee_id
+    - public-orders.order_date
+    - public-orders.required_date
+    - public-orders.shipped_date
+    - public-orders.ship_via
+    - public-orders.ship_name
+    - public-orders.ship_address
+    - public-orders.ship_city
+    - public-orders.ship_region
+    - public-orders.ship_postal_code
+    - public-orders.ship_country
+    # explicitly setting which columns of public-products to extract
+    - public-products.product_id
+    - public-products.product_name
+    - public-products.supplier_id
+    - public-products.category_id
+    - public-products.quantity_per_unit
+    - public-products.units_in_stock
+    - public-products.units_on_order
+    - public-products.reorder_level
+    - public-products.discontinued
+    # remaining tables
+    - public-region.*
+    - public-shippers.*
+    - public-suppliers.*
+    - public-territories.*
+    - public-us_states.*
+  - name: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: public-order_details
+        path: ../../data/order_details.csv
+        keys:
+        - order_id
+        - product_id
+        - unit_price
+        - quantity
+        - discount
+  loaders:
+  - name: target-csv
+    variant: hotgluexyz
+    pip_url: git+https://github.com/hotgluexyz/target-csv.git
+    config:
+      delimiter: ','
+      quotechar: '"'
+      destination_path: "./output"

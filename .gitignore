@@ -1,0 +1,3 @@
+airflow_venv/
+meltano_venv/
+__pycache__/
