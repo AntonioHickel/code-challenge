@@ -8,27 +8,28 @@
 ## Setup
 
 1. **Clone the repository from GitHub:**
-   
-bash   
+  
+```  bash   
 $ git clone git@github.com:AntonioHickel/code-challenge.git
-
+```
 
 2. **Navigate to the project directory:**
 
-bash
+```  bash
 $ cd path/to/project-directory
+```
 
 3. **Give execute permissions to the scripts:**
 
-bash
+```  bash
 $ chmod +x setup_environment.sh && chmod +x run_pipeline.sh && chmod +x run_query.sh
-
+```
 
 4. **Run the environment setup script:**
 
-bash
+``` bash
 $ ./setup_environment.sh
-
+```
 
 This script will install necessary dependencies and set up the environment for the pipeline to run.
 
@@ -36,9 +37,9 @@ This script will install necessary dependencies and set up the environment for t
 
 The pipeline can be run using the `run_pipeline.sh` script. The script has the following structure:
 
-bash
+``` bash
 $ ./run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start_date--MM-DD-YYYY --now
-
+```
 
 ### Options
 
@@ -49,18 +50,20 @@ $ ./run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start
 
 The first step of the pipeline creates directories and separates the files as follows:
 
-bash
+
+```
 /data/postgres/{table}/2024-01-01/file.format
 /data/postgres/{table}/2024-01-02/file.format
+```
 
 
 ## Running the Query
 
 If the user has executed steps one and two of the pipeline, they can run a query that shows the orders and their details that have been loaded into the new database. The command creates a JSON file called `query_result.json` in the project folder with the result of the query:
 
-bash
+``` bash
 $ ./run_query.sh
-
+```
 
 
 
