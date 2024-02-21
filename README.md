@@ -1,3 +1,70 @@
+# Pipeline Project Instructions
+
+## Prerequisites
+
+- Ensure you have Git installed to clone the repository.
+- Ensure you have the necessary permissions to execute scripts in your terminal.
+
+## Setup
+
+1. **Clone the repository from GitHub:**
+   
+bash   
+$ git clone git@github.com:AntonioHickel/code-challenge.git
+
+
+2. **Navigate to the project directory:**
+
+bash
+$ cd path/to/project-directory
+
+3. **Give execute permissions to the scripts:**
+
+bash
+$ chmod +x setup_environment.sh && chmod +x run_pipeline.sh && chmod +x run_query.sh
+
+
+4. **Run the environment setup script:**
+
+bash
+$ ./setup_environment.sh
+
+
+This script will install necessary dependencies and set up the environment for the pipeline to run.
+
+## Running the Pipeline
+
+The pipeline can be run using the `run_pipeline.sh` script. The script has the following structure:
+
+bash
+$ ./run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start_date--MM-DD-YYYY --now
+
+
+### Options
+
+- `--step_one`: Extracts data from a PostgreSQL database and a CSV file and loads it into CSV files for each table extracted into the user's local filesystem.
+- `--step_two`: Extracts the data from each of the tables created into the user's local filesystem into a new PostgreSQL database.
+- `--start_date--MM-DD-YYYY`: Sets the date from which the user desires to start running the steps of the pipeline in Airflow. If not provided, the extraction will start on the current date. The pipeline can be set to a date in the past and runs every day. Note: The pipeline is set in a way that, even though the DAGs are scheduled with an interval of a day, it will start to run from the exact date informed in the argument.
+- `--now`: Triggers a DAG for the step it is set to right after the command is run. This can be useful if the user doesn't want to wait if they set `--start_date--MM-DD-YYYY` for the current date.
+
+The first step of the pipeline creates directories and separates the files as follows:
+
+bash
+/data/postgres/{table}/2024-01-01/file.format
+/data/postgres/{table}/2024-01-02/file.format
+
+
+## Running the Query
+
+If the user has executed steps one and two of the pipeline, they can run a query that shows the orders and their details that have been loaded into the new database. The command creates a JSON file called `query_result.json` in the project folder with the result of the query:
+
+bash
+$ ./run_query.sh
+
+
+
+
+
 # Indicium Tech Code Challenge
 
 Code challenge for Software Developer with focus in data projects.
