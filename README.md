@@ -86,11 +86,6 @@ $ ./host_run_query.sh
 
 
 
-
-
-
-
-
 # Indicium Tech Code Challenge
 
 Code challenge for Software Developer with focus in data projects.
