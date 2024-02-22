@@ -11,31 +11,31 @@
 1. **Clone the repository from GitHub:**
    
 ``` bash
-$ git clone git@github.com:AntonioHickel/code-challenge.git
+git clone git@github.com:AntonioHickel/code-challenge.git
 ```
 
 2. **Navigate to the project directory:**
 
 ``` bash
-$ cd path/to/project-directory
+cd path/to/project-directory
 ```
 
 3. **Build the docker containers:**
 
 ``` bash
-$ sudo docker compose up -d
+sudo docker compose up -d
 ```
 
 4. **Execute permissions to the scripts:**
 
 ``` bash
-$ chmod +x host_initialize_airflow_db.sh host_run_pipeline.sh host_run_query.sh
+chmod +x host_initialize_airflow_db.sh host_run_pipeline.sh host_run_query.sh
 ```
 
 5. **Initialize airflow:**
 
 ``` bash
-$ ./host_initialize_airflow_db.sh
+./host_initialize_airflow_db.sh
 ```
 
 This script will initialize the airflow database.
@@ -45,7 +45,7 @@ This script will initialize the airflow database.
 The pipeline can be run using the `host_run_pipeline.sh` script. The script has the following structure:
 
 ``` bash
-$ ./host_run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start_date--MM-DD-YYYY --now
+./host_run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start_date--MM-DD-YYYY --now
 ```
 
 ### Options
@@ -60,7 +60,7 @@ $ ./host_run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --
 To run both steps of the pipeline starting from January 1, 2024, and trigger them immediately:
 
 ``` bash
-$ ./host_run_pipeline.sh --step_one --start_date--01-01-2024 --now --step_two --start_date--01-01-2024 --now
+./host_run_pipeline.sh --step_one --start_date--01-01-2024 --now --step_two --start_date--01-01-2024 --now
 ```
 
 The first step of the pipeline creates directories within the docker and separates the files as follows:
@@ -75,7 +75,7 @@ The first step of the pipeline creates directories within the docker and separat
 If the user has executed steps one and two of the pipeline, they can run a query that shows the orders and their details that have been loaded into the new database. The command creates a JSON file called `query_result.json` in the project folder with the result of the query:
 
 ``` bash
-$ ./host_run_query.sh
+./host_run_query.sh
 ```
 
 
