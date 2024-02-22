@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COMMAND_TO_RUN="cd docker_scripts && /run_query.sh"
+COMMAND_TO_RUN="cd docker_scripts && ./run_query.sh"
 
 sudo docker exec -it code-challenge-pipeline-service-1 bash -c "$COMMAND_TO_RUN"
 
