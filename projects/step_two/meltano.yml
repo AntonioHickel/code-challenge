@@ -145,7 +145,7 @@ plugins:
     variant: meltanolabs
     pip_url: meltanolabs-target-postgres
     config:
-      host: localhost
+      host: db
       port: 5432
       user: northwind_user
       password: thewindisblowing

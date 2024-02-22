@@ -2,6 +2,7 @@ Pipeline Project Instructions
 
 Prerequisites:
 - Ensure you have Git installed to clone the repository.
+- Ensure you have Docker installed to build the containers.
 - Ensure you have the necessary permissions to execute scripts in your terminal.
 
 Setup:
@@ -11,16 +12,19 @@ Setup:
 2. Navigate to the project directory:
    cd path/to/project-directory
 
-3. Give execute permissions to the scripts:
-   chmod +x setup_environment.sh && chmod +x run_pipeline.sh && chmod +x run_query.sh
+3. Build the docker containers:
+   sudo docker compose up -d
 
-4. Run the environment setup script:
-   ./setup_environment.sh
-   This script will install necessary dependencies and set up the environment for the pipeline to run.
+4. Give execute permissions to the scripts:
+   chmod +x host_initialize_airflow_db.sh host_run_pipeline.sh host_run_query.sh
+
+5. Initialize airflow:
+   ./host_initialize_airflow_db.sh
+   This script will initialize airflow database.
 
 Running the Pipeline:
-The pipeline can be run using the run_pipeline.sh script. The script has the following structure:
-   ./run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start_date--MM-DD-YYYY --now
+The pipeline can be run using the host_run_pipeline.sh script. The script has the following structure:
+   ./host_run_pipeline.sh --step_one --start_date--MM-DD-YYYY --now --step_two --start_date--MM-DD-YYYY --now
 
 Options:
 - --step_one: Extracts data from a PostgreSQL database and a CSV file and loads it into CSV files for each table extracted into the user's local filesystem.
@@ -30,12 +34,12 @@ Options:
 
 Example:
 To run both steps of the pipeline starting from January 1, 2024, and trigger them immediately:
-   ./run_pipeline.sh --step_one --start_date--01-01-2024 --now --step_two --start_date--01-01-2024 --now
+   ./host_run_pipeline.sh --step_one --start_date--01-01-2024 --now --step_two --start_date--01-01-2024 --now
 
-The first step of the pipeline creates directories and separates the files as follows:
+The first step of the pipeline creates directories within the docker and separates the files as follows:
    /data/postgres/{table}/2024-01-01/file.format
    /data/postgres/{table}/2024-01-02/file.format
 
 Running the Query:
 If the user has executed steps one and two of the pipeline, they can run a query that shows the orders and their details that have been loaded into the new database. The command creates a JSON file called query_result.json in the project folder with the result of the query:
-   ./run_query.sh
+   ./host_run_query.sh

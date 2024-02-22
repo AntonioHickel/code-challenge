@@ -13,7 +13,7 @@ db_params = {
     'dbname': 'northwind',
     'user': 'northwind_user',
     'password': 'thewindisblowing',
-    'host': 'localhost',
+    'host': 'db',
     'port': 5432
 }
 

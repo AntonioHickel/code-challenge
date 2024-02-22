@@ -12,3 +12,11 @@ services:
       - ./data/northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
     ports:
       - 5432:5432
+
+  pipeline-service:
+    platform: linux/amd64
+    environment:
+      - PIPELINE_HOME=/app
+    build:
+      context: .
+      dockerfile: pipeline.dockerfile

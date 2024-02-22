@@ -5,9 +5,16 @@ from datetime import datetime, timedelta
 import os
 from datetime import datetime, timedelta
 
-YEAR = int(os.getenv('YEAR1'))
-MONTH = int(os.getenv('MONTH1'))
-DAY = int(os.getenv('DAY1'))
+yesterday = datetime.now() - timedelta(days=1)
+
+try:
+    YEAR = int(os.getenv('YEAR1'))
+    MONTH = int(os.getenv('MONTH1'))
+    DAY = int(os.getenv('DAY1'))
+except:
+    YEAR = int(yesterday.year)
+    MONTH = int(yesterday.month)
+    DAY = int(yesterday.day)
 
 default_args = {
     'owner': 'airflow',

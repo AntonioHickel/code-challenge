@@ -1,13 +1,13 @@
 #!/bin/bash
 
+cd ../
+
 export PIPELINE_HOME=$PWD
 
 cd projects/step_one/ && chmod +x run_elt_and_transfer_output.sh && cd ../..
 cd projects/step_two/ && chmod +x fetch_path_step2.sh && cd ../..
 
-
 source airflow_venv/bin/activate
-
 
 (airflow webserver -p 8080 &)
 
