@@ -11,6 +11,7 @@ source airflow_venv/bin/activate
 
 (airflow webserver -p 8080 &)
 
+airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin --password admin
 airflow dags pause run_elt_and_transfer_output
 airflow dags pause fetch_path_step2
 
